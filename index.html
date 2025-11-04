@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Landscape of Consciousness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1f36;
+            --primary-medium: #2d3748;
+            --primary-light: #4a5568;
+            --accent-blue: #3b82f6;
+            --accent-purple: #7c3aed;
+            --accent-teal: #14b8a6;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --border-subtle: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #312e81 50%, #581c87 100%);
+            border-radius: 24px;
+            padding: 60px 50px;
+            color: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3.5em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        
+        .brain-symbol {
+            display: inline-block;
+            margin-right: 16px;
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .header .subtitle {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1.25em;
+            font-weight: 400;
+            opacity: 0.92;
+            font-style: italic;
+            letter-spacing: 0.01em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            background: rgba(255,255,255,0.16);
+            transform: translateY(-2px);
+        }
+        
+        .stat-card .number {
+            font-size: 3.25em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        
+        .stat-card .label {
+            font-size: 0.875em;
+            margin-top: 8px;
+            opacity: 0.9;
+            letter-spacing: 0.02em;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .nav-btn {
+            padding: 18px 24px;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            color: var(--text-primary);
+            position: relative;
+            letter-spacing: 0.01em;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: var(--bg-light);
+            border-color: var(--border-subtle);
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3);
+        }
+        
+        .nav-icon {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+        
+        /* Content */
+        .content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            min-height: 600px;
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .content h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5em;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        
+        .content > p {
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            margin-bottom: 30px;
+        }
+        
+        /* Spectrum */
+        .spectrum-bar {
+            display: flex;
+            height: 160px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+            margin: 40px 0;
+            border: 2px solid rgba(255,255,255,0.8);
+        }
+        
+        .spectrum-segment {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-align: center;
+            padding: 16px 8px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            letter-spacing: 0.02em;
+        }
+        
+        .spectrum-segment::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 100%);
+            pointer-events: none;
+        }
+        
+        .spectrum-segment:hover {
+            transform: scaleY(1.08);
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .segment-label {
+            font-size: 1.05em;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .segment-count {
+            font-size: 0.75em;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+        
+        .spectrum-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+        
+        .spectrum-labels span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .arrow {
+            font-size: 1.2em;
+        }
+        
+        /* Theory Cards */
+        .theory-card {
+            background: linear-gradient(135deg, #fafbfc 0%, #f8fafc 100%);
+            border-left: 5px solid;
+            border-radius: 16px;
+            padding: 36px;
+            margin: 32px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 1px solid var(--border-subtle);
+            border-right: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .theory-card:hover {
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .theory-card h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.75em;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+        
+        .theory-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+        
+        .theory-card h4 {
+            font-weight: 600;
+            margin-top: 24px;
+            margin-bottom: 16px;
+            color: var(--primary-medium);
+            font-size: 1.1em;
+            letter-spacing: 0.01em;
+        }
+        
+        .theory-list {
+            display: grid;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .theory-item {
+            background: white;
+            border-left: 4px solid;
+            border-radius: 12px;
+            padding: 20px 24px;
+            transition: all 0.3s ease;
+            border-top: 1px solid var(--border-subtle);
+            border-right: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .theory-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.12);
+        }
+        
+        .theory-item strong {
+            font-size: 1.15em;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+        
+        .theory-item .meta {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin: 8px 0;
+        }
+        
+        .theory-item .claim {
+            color: var(--primary-medium);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+        
+        /* Contradictions */
+        .contradiction {
+            background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+            border-left: 5px solid #dc2626;
+            border-radius: 16px;
+            padding: 36px;
+            margin: 32px 0;
+            border-top: 1px solid #fecaca;
+            border-right: 1px solid #fecaca;
+            border-bottom: 1px solid #fecaca;
+            box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.1);
+        }
+        
+        .contradiction h4 {
+            color: #991b1b;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: -0.01em;
+        }
+        
+        .vs {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .theory-tag {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 0.02em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+        
+        .vs-symbol {
+            font-weight: 900;
+            font-size: 1.2em;
+            color: #dc2626;
+        }
+        
+        .contradiction p {
+            line-height: 1.7;
+            margin: 12px 0;
+            color: var(--primary-medium);
+        }
+        
+        .contradiction strong {
+            color: #991b1b;
+            font-weight: 700;
+        }
+        
+        .test-box {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 1px solid #fecaca;
+        }
+        
+        /* Agreements */
+        .agreement {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border-left: 5px solid #059669;
+            border-radius: 16px;
+            padding: 36px;
+            margin: 32px 0;
+            border-top: 1px solid #bbf7d0;
+            border-right: 1px solid #bbf7d0;
+            border-bottom: 1px solid #bbf7d0;
+            box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.1);
+        }
+        
+        .agreement h4 {
+            color: #065f46;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: -0.01em;
+        }
+        
+        .agreement p {
+            line-height: 1.7;
+            margin: 12px 0;
+            color: var(--primary-medium);
+        }
+        
+        .agreement strong {
+            color: #065f46;
+            font-weight: 700;
+        }
+        
+        .testable-box {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 1px solid #bbf7d0;
+        }
+        
+        /* Predictions */
+        .prediction {
+            background: white;
+            border-left: 5px solid;
+            border-radius: 16px;
+            padding: 36px;
+            margin: 32px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            border-top: 1px solid var(--border-subtle);
+            border-right: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+        
+        .prediction:hover {
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .prediction h4 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .status-supported { 
+            background: #dcfce7; 
+            color: #15803d;
+            border: 1px solid #86efac;
+        }
+        .status-mixed { 
+            background: #fef3c7; 
+            color: #a16207;
+            border: 1px solid #fde047;
+        }
+        .status-disputed { 
+            background: #fed7aa; 
+            color: #c2410c;
+            border: 1px solid #fdba74;
+        }
+        .status-challenged { 
+            background: #fecaca; 
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+        }
+        .status-untested { 
+            background: #f1f5f9; 
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        
+        .prediction p {
+            line-height: 1.7;
+            margin: 12px 0;
+            color: var(--text-secondary);
+        }
+        
+        .prediction strong {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .next-step {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-top: 16px;
+            border-left: 3px solid #059669;
+        }
+        
+        /* Hypothesis Box */
+        .hypothesis-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+            border: 2px solid #93c5fd;
+            border-radius: 20px;
+            padding: 44px;
+            margin: 48px 0;
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.2);
+        }
+        
+        .hypothesis-box h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #1e40af;
+            font-size: 2em;
+            margin-bottom: 28px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        
+        .hypothesis-item {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 24px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e7ff;
+            transition: all 0.3s ease;
+        }
+        
+        .hypothesis-item:hover {
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .hypothesis-item h5 {
+            color: #1e40af;
+            font-size: 1.35em;
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+        
+        .hypothesis-item p {
+            line-height: 1.7;
+            margin: 12px 0;
+            color: var(--text-secondary);
+        }
+        
+        .hypothesis-item strong {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .impact-note {
+            color: #2563eb;
+            font-weight: 700;
+            margin-top: 16px;
+            padding: 16px;
+            background: #eff6ff;
+            border-radius: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 20px;
+            padding: 44px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .footer h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 1.75em;
+            font-weight: 600;
+        }
+        
+        .footer p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.05em;
+        }
+        
+        .footer strong {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .footer em {
+            font-style: italic;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+            margin: 24px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Utility */
+        .symbol {
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.25em;
+            }
+            
+            .header .subtitle {
+                font-size: 1.05em;
+            }
+            
+            .content {
+                padding: 32px 24px;
+            }
+            
+            .spectrum-segment {
+                font-size: 0.75em;
+                padding: 12px 6px;
+            }
+            
+            .theory-card,
+            .contradiction,
+            .agreement,
+            .prediction {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1><span class="brain-symbol">◉</span>The Landscape of Consciousness</h1>
+                <p class="subtitle">An Interactive Taxonomy & Hypothesis Generator</p>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="number">10</div>
+                        <div class="label">Major Categories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">60<span style="font-size: 0.6em; opacity: 0.7;">+</span></div>
+                        <div class="label">Specific Theories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">6</div>
+                        <div class="label">Key Tensions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">5</div>
+                        <div class="label">Novel Hypotheses</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <button class="nav-btn active" onclick="showView('spectrum')">
+                <span class="nav-icon">◈</span>Spectrum
+            </button>
+            <button class="nav-btn" onclick="showView('tensions')">
+                <span class="nav-icon">⋈</span>Tensions
+            </button>
+            <button class="nav-btn" onclick="showView('agreements')">
+                <span class="nav-icon">◇</span>Agreements
+            </button>
+            <button class="nav-btn" onclick="showView('predictions')">
+                <span class="nav-icon">◆</span>Predictions
+            </button>
+        </div>
+        
+        <div class="content">
+            <!-- Spectrum View -->
+            <div id="spectrum-view" class="view-content">
+                <h2>The Theoretical Spectrum</h2>
+                <p>From purely physical to purely mental ontologies</p>
+                
+                <div class="spectrum-bar">
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);" onclick="showCategory('materialism')">
+                        <span class="segment-label">Materialism</span>
+                        <span class="segment-count">30+ theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);" onclick="showCategory('nonreductive')">
+                        <span class="segment-label">Non-Reductive</span>
+                        <span class="segment-count">2 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #06b6d4 0%, #0891b2 100%);" onclick="showCategory('quantum')">
+                        <span class="segment-label">Quantum</span>
+                        <span class="segment-count">3 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #10b981 0%, #059669 100%);" onclick="showCategory('iit')">
+                        <span class="segment-label">IIT</span>
+                        <span class="segment-count">1 theory</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);" onclick="showCategory('panpsychism')">
+                        <span class="segment-label">Panpsychism</span>
+                        <span class="segment-count">3 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #ec4899 0%, #db2777 100%);" onclick="showCategory('monism')">
+                        <span class="segment-label">Monism</span>
+                        <span class="segment-count">3 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);" onclick="showCategory('dualism')">
+                        <span class="segment-label">Dualism</span>
+                        <span class="segment-count">3 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #a855f7 0%, #9333ea 100%);" onclick="showCategory('idealism')">
+                        <span class="segment-label">Idealism</span>
+                        <span class="segment-count">3 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #14b8a6 0%, #0d9488 100%);" onclick="showCategory('anomalous')">
+                        <span class="segment-label">Anomalous</span>
+                        <span class="segment-count">3 theories</span>
+                    </div>
+                    <div class="spectrum-segment" style="background: linear-gradient(180deg, #64748b 0%, #475569 100%);" onclick="showCategory('challenge')">
+                        <span class="segment-label">Challenge</span>
+                        <span class="segment-count">2 theories</span>
+                    </div>
+                </div>
+                
+                <div class="spectrum-labels">
+                    <span><span class="arrow">←</span> <span class="symbol">⬢</span> Pure Physical</span>
+                    <span>Pure Mental <span class="symbol">⬡</span> <span class="arrow">→</span></span>
+                </div>
+                
+                <div id="category-details" style="margin-top: 40px;"></div>
+            </div>
+            
+            <!-- Tensions View -->
+            <div id="tensions-view" class="view-content hidden">
+                <h2>Fundamental Tensions</h2>
+                <p>Where theories fundamentally disagree</p>
+                
+                <div class="contradiction">
+                    <h4>1. Eliminativism versus Integrated Information Theory</h4>
+                    <div class="vs">
+                        <span class="theory-tag" style="background: #dbeafe; color: #1e40af;">Eliminativism</span>
+                        <span class="vs-symbol">⋈</span>
+                        <span class="theory-tag" style="background: #dcfce7; color: #15803d;">IIT</span>
+                    </div>
+                    <p><strong>Central Tension:</strong> Does phenomenal consciousness even exist?</p>
+                    <p>Eliminativism (Dennett, Frankish) denies phenomenal consciousness exists—it's an illusion. IIT (Tononi, Koch) makes consciousness fundamental and measurable with Φ (phi).</p>
+                    <div class="test-box">
+                        <strong>Empirical Test:</strong> If Φ reliably correlates with subjective reports, eliminativism fails. If consciousness reports are systematically unreliable, IIT's measurement is questioned.
+                    </div>
+                </div>
+                
+                <div class="contradiction">
+                    <h4>2. Materialism versus Idealism</h4>
+                    <div class="vs">
+                        <span class="theory-tag" style="background: #dbeafe; color: #1e40af;">Materialism</span>
+                        <span class="vs-symbol">⋈</span>
+                        <span class="theory-tag" style="background: #f3e8ff; color: #7c3aed;">Idealism</span>
+                    </div>
+                    <p><strong>Central Tension:</strong> Ontological priority—what comes first?</p>
+                    <p>Materialism: matter → consciousness. Idealism: consciousness → matter appearance.</p>
+                    <div class="test-box">
+                        <strong>Empirical Test:</strong> Can consciousness exist without physical substrate? Can we find consciousness-only phenomena?
+                    </div>
+                </div>
+                
+                <div class="contradiction">
+                    <h4>3. Global Workspace versus Integrated Information</h4>
+                    <div class="vs">
+                        <span class="theory-tag" style="background: #dbeafe; color: #1e40af;">Global Workspace</span>
+                        <span class="vs-symbol">⋈</span>
+                        <span class="theory-tag" style="background: #dcfce7; color: #15803d;">IIT</span>
+                    </div>
+                    <p><strong>Central Tension:</strong> Broadcasting versus integration</p>
+                    <p>GWT (Baars, Dehaene): consciousness requires global broadcasting. IIT: consciousness IS integrated information—broadcasting not necessary.</p>
+                    <div class="test-box">
+                        <strong>Empirical Test:</strong> Brain stimulation to create high Φ without broadcasting = IIT correct. Broadcasting without integration = GWT correct.
+                    </div>
+                </div>
+                
+                <div class="contradiction">
+                    <h4>4. Panpsychism versus Emergence Theories</h4>
+                    <div class="vs">
+                        <span class="theory-tag" style="background: #fef3c7; color: #a16207;">Panpsychism</span>
+                        <span class="vs-symbol">⋈</span>
+                        <span class="theory-tag" style="background: #e0e7ff; color: #4338ca;">Emergence</span>
+                    </div>
+                    <p><strong>Central Tension:</strong> The combination problem</p>
+                    <p>How do micro-experiences combine into unified macro-experience? Emergence theories avoid this by having consciousness emerge from non-conscious matter.</p>
+                    <div class="test-box">
+                        <strong>Empirical Test:</strong> Find evidence of micro-consciousness, or demonstrate genuine emergence of consciousness from non-conscious matter.
+                    </div>
+                </div>
+                
+                <div class="contradiction">
+                    <h4>5. Quantum versus Classical Neural Theories</h4>
+                    <div class="vs">
+                        <span class="theory-tag" style="background: #cffafe; color: #0e7490;">Quantum</span>
+                        <span class="vs-symbol">⋈</span>
+                        <span class="theory-tag" style="background: #dbeafe; color: #1e40af;">Classical</span>
+                    </div>
+                    <p><strong>Central Tension:</strong> Decoherence timescales</p>
+                    <p>Brain too warm and wet for quantum coherence (picoseconds) versus neural processing (milliseconds). Quantum theories claim it matters anyway.</p>
+                    <div class="test-box">
+                        <strong>Empirical Test:</strong> Measure quantum coherence in neural tissue during consciousness. Manipulate coherence and test consciousness effects.
+                    </div>
+                </div>
+                
+                <div class="contradiction">
+                    <h4>6. Higher-Order versus First-Order Theories</h4>
+                    <div class="vs">
+                        <span class="theory-tag" style="background: #dbeafe; color: #1e40af;">Higher-Order</span>
+                        <span class="vs-symbol">⋈</span>
+                        <span class="theory-tag" style="background: #e0e7ff; color: #4338ca;">First-Order</span>
+                    </div>
+                    <p><strong>Central Tension:</strong> Necessity of meta-representation</p>
+                    <p>Higher-order theories: need thoughts about perceptions for consciousness. First-order: perception itself is sufficient.</p>
+                    <div class="test-box">
+                        <strong>Empirical Test:</strong> Patients with prefrontal damage but intact phenomenology challenge higher-order theories.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agreements View -->
+            <div id="agreements-view" class="view-content hidden">
+                <h2>Points of Convergence</h2>
+                <p>Where theories find common ground despite differences</p>
+                
+                <div class="agreement">
+                    <h4>Information Processing is Central</h4>
+                    <p><strong>Converging theories:</strong> IIT, Global Workspace, Predictive Processing, Computational theories</p>
+                    <p>All agree that information dynamics matter for consciousness, though they differ on specifics (integration versus broadcast versus prediction).</p>
+                    <div class="testable-box">
+                        <strong>Testable implication:</strong> Manipulate information flow patterns and measure consciousness changes across different paradigms.
+                    </div>
+                </div>
+                
+                <div class="agreement">
+                    <h4>Body-Environment Coupling is Essential</h4>
+                    <p><strong>Converging theories:</strong> Embodied Cognition, Enactive, Extended Mind, Predictive Processing</p>
+                    <p>Consciousness requires active engagement with environment, not merely brain in isolation.</p>
+                    <div class="testable-box">
+                        <strong>Testable implication:</strong> Compare consciousness quality in active versus passive conditions, sensory deprivation experiments.
+                    </div>
+                </div>
+                
+                <div class="agreement">
+                    <h4>Consciousness as Fundamental Property</h4>
+                    <p><strong>Converging theories:</strong> Panpsychism, Idealism, Some Monisms, Cosmopsychism</p>
+                    <p>Consciousness doesn't emerge from non-conscious matter; it's already present in some form at fundamental levels.</p>
+                    <div class="testable-box">
+                        <strong>Testable implication:</strong> Look for consciousness markers in progressively simpler systems; determine where it "starts" (or doesn't).
+                    </div>
+                </div>
+                
+                <div class="agreement">
+                    <h4>Neural Activity as Necessary Condition</h4>
+                    <p><strong>Converging theories:</strong> Most Materialist theories, Some Quantum theories, Non-Reductive Physicalism</p>
+                    <p>Brain states reliably correlate with conscious states across all these theoretical frameworks.</p>
+                    <div class="testable-box">
+                        <strong>Testable implication:</strong> Already well-tested through lesion studies, brain imaging, neural manipulation experiments.
+                    </div>
+                </div>
+                
+                <div class="agreement">
+                    <h4>Gradations in Consciousness</h4>
+                    <p><strong>Converging theories:</strong> IIT, Panpsychism, Some Monisms</p>
+                    <p>Consciousness is not binary but exists on a spectrum from minimal to full consciousness.</p>
+                    <div class="testable-box">
+                        <strong>Testable implication:</strong> Measure consciousness markers across species, developmental stages, and brain states.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Predictions View -->
+            <div id="predictions-view" class="view-content hidden">
+                <h2>Empirical Predictions</h2>
+                <p>Current status of testable predictions and novel hypotheses</p>
+                
+                <div class="prediction" style="border-color: #fbbf24;">
+                    <h4>
+                        <span>Integrated Information Theory</span>
+                        <span class="status-badge status-mixed">Mixed Evidence</span>
+                    </h4>
+                    <p><strong>Prediction:</strong> Posterior cortex "hot zone" has maximum Φ during consciousness</p>
+                    <p><strong>Test method:</strong> Measure integrated information in different brain regions using perturbational complexity index</p>
+                    <p><strong>Current evidence:</strong> PCI measures support it in some studies; others find consciousness without high posterior Φ</p>
+                    <div class="next-step">
+                        <strong>Next step:</strong> Direct Φ measurement in awake behaving subjects across all brain regions
+                    </div>
+                </div>
+                
+                <div class="prediction" style="border-color: #10b981;">
+                    <h4>
+                        <span>Global Workspace Theory</span>
+                        <span class="status-badge status-supported">Strong Support</span>
+                    </h4>
+                    <p><strong>Prediction:</strong> Conscious perception requires widespread cortical broadcasting</p>
+                    <p><strong>Test method:</strong> Compare subliminal versus conscious stimuli activation patterns</p>
+                    <p><strong>Current evidence:</strong> fMRI and EEG studies consistently show "global ignition" for conscious but not subliminal perception</p>
+                    <div class="next-step">
+                        <strong>Next step:</strong> Artificially induce global broadcasting without external stimulus
+                    </div>
+                </div>
+                
+                <div class="prediction" style="border-color: #f97316;">
+                    <h4>
+                        <span>Orchestrated Objective Reduction</span>
+                        <span class="status-badge status-disputed">Disputed</span>
+                    </h4>
+                    <p><strong>Prediction:</strong> Anesthetics work by disrupting quantum coherence in microtubules</p>
+                    <p><strong>Test method:</strong> Measure quantum coherence in microtubules with and without anesthesia</p>
+                    <p><strong>Current evidence:</strong> Some anesthetic binding evidence but decoherence time problems remain unsolved</p>
+                    <div class="next-step">
+                        <strong>Next step:</strong> High-precision quantum measurements in living neural tissue
+                    </div>
+                </div>
+                
+                <div class="prediction" style="border-color: #10b981;">
+                    <h4>
+                        <span>Predictive Processing</span>
+                        <span class="status-badge status-supported">Supported</span>
+                    </h4>
+                    <p><strong>Prediction:</strong> Prediction errors modulate conscious content</p>
+                    <p><strong>Test method:</strong> Manipulate predictions and measure phenomenology changes</p>
+                    <p><strong>Current evidence:</strong> Rubber hand illusion, binocular rivalry, bistable perception all show prediction effects</p>
+                    <div class="next-step">
+                        <strong>Next step:</strong> Dissociate prediction from consciousness more cleanly with neural manipulation
+                    </div>
+                </div>
+                
+                <div class="prediction" style="border-color: #ef4444;">
+                    <h4>
+                        <span>Higher-Order Theory</span>
+                        <span class="status-badge status-challenged">Challenged</span>
+                    </h4>
+                    <p><strong>Prediction:</strong> Prefrontal cortex damage eliminates consciousness</p>
+                    <p><strong>Test method:</strong> Lesion studies and TMS disruption of prefrontal areas</p>
+                    <p><strong>Current evidence:</strong> Many patients with extensive prefrontal damage retain rich phenomenal consciousness</p>
+                    <div class="next-step">
+                        <strong>Next step:</strong> More precise targeting of specific higher-order representational areas
+                    </div>
+                </div>
+                
+                <div class="prediction" style="border-color: #64748b;">
+                    <h4>
+                        <span>Panpsychism</span>
+                        <span class="status-badge status-untested">Untested</span>
+                    </h4>
+                    <p><strong>Prediction:</strong> No sharp threshold for consciousness in complexity scale</p>
+                    <p><strong>Test method:</strong> Search for consciousness markers in progressively simpler systems</p>
+                    <p><strong>Current evidence:</strong> Mostly philosophical; difficult to operationalize empirically</p>
+                    <div class="next-step">
+                        <strong>Next step:</strong> Develop consciousness measures applicable to very simple systems
+                    </div>
+                </div>
+                
+                <!-- Novel Hypotheses -->
+                <div class="hypothesis-box">
+                    <h3>Novel Testable Hypotheses</h3>
+                    
+                    <div class="hypothesis-item">
+                        <h5>IIT versus GWT Adversarial Test</h5>
+                        <p><strong>Hypothesis:</strong> Measure Φ and broadcasting simultaneously during binocular rivalry. If high Φ without broadcasting → IIT correct. If broadcasting without high Φ → GWT correct.</p>
+                        <p><strong>Method:</strong> Simultaneous perturbational complexity and EEG phase-locking measures during rivalry transitions</p>
+                        <div class="impact-note">
+                            <strong>Impact:</strong> Would definitively distinguish two leading theories
+                        </div>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h5>Panpsychism Boundary Test</h5>
+                        <p><strong>Hypothesis:</strong> If panpsychism is true, consciousness markers scale continuously without threshold. If emergence is true, there should be a discontinuity.</p>
+                        <p><strong>Method:</strong> Measure behavioral flexibility, information integration, and predictive capability from insects to mammals</p>
+                        <div class="impact-note">
+                            <strong>Impact:</strong> Would inform the fundamental versus emergent debate
+                        </div>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h5>Quantum Coherence Correlation</h5>
+                        <p><strong>Hypothesis:</strong> If quantum theories are correct, coherence time in neural microtubules should correlate with conscious state richness.</p>
+                        <p><strong>Method:</strong> Use nitrogen-vacancy diamond sensors to measure quantum coherence during waking, dreaming, meditation, and psychedelic states</p>
+                        <div class="impact-note">
+                            <strong>Impact:</strong> Would validate or refute quantum role in consciousness
+                        </div>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h5>Embodiment Necessity Test</h5>
+                        <p><strong>Hypothesis:</strong> Embodied theories predict consciousness quality depends on sensorimotor loops, not just computation.</p>
+                        <p><strong>Method:</strong> Compare phenomenology between (a) active sensorimotor engagement, (b) passive observation, (c) brain-computer interface without body movement</p>
+                        <div class="impact-note">
+                            <strong>Impact:</strong> Would clarify role of body versus pure computation
+                        </div>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h5>AI Consciousness Marker Discovery</h5>
+                        <p><strong>Hypothesis:</strong> If multiple theories agree on certain markers (integration, broadcasting, prediction error), systems with ALL markers likely have consciousness.</p>
+                        <p><strong>Method:</strong> Build AI systems with varying combinations of proposed markers; test for behavioral indicators of phenomenology</p>
+                        <div class="impact-note">
+                            <strong>Impact:</strong> Would create consensus markers for machine consciousness
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>Research Foundation</h3>
+            <p><strong>Primary source:</strong> Robert Lawrence Kuhn (2024). "A landscape of consciousness: Toward a taxonomy of explanations and implications." <em>Progress in Biophysics and Molecular Biology</em>, Vol. 190, pp. 28–169.</p>
+            
+            <div class="divider"></div>
+            
+            <p><strong>Methodological aim:</strong> Advance consciousness science by systematically mapping theory relationships, identifying fundamental contradictions, and generating empirically testable hypotheses that could distinguish between competing frameworks.</p>
+            
+            <div class="divider"></div>
+            
+            <p style="font-size: 0.95em; color: var(--text-secondary);">Interactive visualization designed to facilitate scientific discourse and hypothesis generation in consciousness studies.</p>
+        </div>
+    </div>
+
+    <script>
+        const categories = {
+            materialism: {
+                name: 'Materialism Theories',
+                color: '#3b82f6',
+                description: 'Consciousness emerges from or is reducible to physical processes in the brain',
+                theories: [
+                    { name: 'Eliminativism', proponents: 'Dennett, Frankish', claim: 'Consciousness is an illusion; phenomenal experience doesn\'t exist' },
+                    { name: 'Functionalism', proponents: 'Putnam, Block', claim: 'Mental states are functional states defined by causal roles' },
+                    { name: 'Global Workspace', proponents: 'Baars, Dehaene', claim: 'Consciousness = globally broadcast information in the brain' },
+                    { name: 'Neural Correlates', proponents: 'Crick, Koch', claim: 'Specific neural patterns are necessary and sufficient for consciousness' },
+                    { name: 'Predictive Processing', proponents: 'Clark, Friston', claim: 'Brain constantly predicts sensory input; consciousness is prediction error' },
+                    { name: 'Embodied Cognition', proponents: 'Varela, Thompson', claim: 'Consciousness requires body-environment coupling, not just brain' },
+                    { name: 'Higher-Order Theories', proponents: 'Rosenthal, Lau', claim: 'Consciousness = mental states that represent other mental states' },
+                    { name: 'Attention Schema', proponents: 'Graziano', claim: 'Consciousness is brain\'s internal model of its own attention' }
+                ]
+            },
+            nonreductive: {
+                name: 'Non-Reductive Physicalism',
+                color: '#8b5cf6',
+                description: 'Consciousness is physical but cannot be reduced to lower-level physics',
+                theories: [
+                    { name: 'Strong Emergence', proponents: 'Ellis', claim: 'Top-down causation is real; higher levels constrain lower levels' },
+                    { name: 'Property Emergence', proponents: 'Murphy', claim: 'New causal properties genuinely arise at higher organizational levels' }
+                ]
+            },
+            quantum: {
+                name: 'Quantum Theories',
+                color: '#06b6d4',
+                description: 'Quantum mechanics is essential for understanding consciousness',
+                theories: [
+                    { name: 'Orch OR', proponents: 'Penrose, Hameroff', claim: 'Quantum collapse in microtubules creates consciousness moments' },
+                    { name: 'Quantum Mind', proponents: 'Stapp', claim: 'Observer collapses wave function; consciousness is quantum measurement' },
+                    { name: 'Implicate Order', proponents: 'Bohm', claim: 'Consciousness accesses implicate order underlying explicate reality' }
+                ]
+            },
+            iit: {
+                name: 'Integrated Information Theory (IIT)',
+                color: '#10b981',
+                description: 'Consciousness equals integrated information (Φ)',
+                theories: [
+                    { name: 'IIT 4.0', proponents: 'Tononi, Koch', claim: 'Consciousness is intrinsic causal power; measured by Φ (phi)' }
+                ]
+            },
+            panpsychism: {
+                name: 'Panpsychism',
+                color: '#f59e0b',
+                description: 'Consciousness or proto-consciousness is fundamental to all matter',
+                theories: [
+                    { name: 'Micropsychism', proponents: 'Chalmers, Goff', claim: 'Fundamental particles have proto-phenomenal properties' },
+                    { name: 'Cosmopsychism', proponents: 'Strawson', claim: 'Universe as a whole has one consciousness; we are parts' },
+                    { name: 'Panprotopsychism', proponents: 'Various', claim: 'Matter has proto-phenomenal properties that combine into consciousness' }
+                ]
+            },
+            monism: {
+                name: 'Monisms',
+                color: '#ec4899',
+                description: 'Mental and physical are two aspects of one underlying substance',
+                theories: [
+                    { name: 'Russellian Monism', proponents: 'Russell', claim: 'One neutral substance with mental and physical aspects' },
+                    { name: 'Dual-Aspect Monism', proponents: 'Atmanspacher', claim: 'Mind-matter complementarity like wave-particle duality' },
+                    { name: 'Reflexive Monism', proponents: 'Velmans', claim: 'Consciousness and matter mutually define each other' }
+                ]
+            },
+            dualism: {
+                name: 'Dualism',
+                color: '#ef4444',
+                description: 'Mind and matter are fundamentally distinct substances or properties',
+                theories: [
+                    { name: 'Substance Dualism', proponents: 'Swinburne, Descartes', claim: 'Soul is non-physical substance that interacts with body' },
+                    { name: 'Property Dualism', proponents: 'Chalmers', claim: 'Mental properties are non-physical but depend on physical' },
+                    { name: 'Interactive Dualism', proponents: 'Popper, Eccles', claim: 'Non-physical mind causally influences physical brain' }
+                ]
+            },
+            idealism: {
+                name: 'Idealism',
+                color: '#a855f7',
+                description: 'Consciousness is fundamental; matter is derived from or within consciousness',
+                theories: [
+                    { name: 'Analytic Idealism', proponents: 'Kastrup', claim: 'Reality is mental; physical world is dissociated consciousness' },
+                    { name: 'Conscious Realism', proponents: 'Hoffman', claim: 'Spacetime is user interface; consciousness agents are fundamental' },
+                    { name: 'Cosmic Consciousness', proponents: 'Vedanta, Buddhism', claim: 'Universal awareness is primary; individual minds are manifestations' }
+                ]
+            },
+            anomalous: {
+                name: 'Anomalous & Altered States',
+                color: '#14b8a6',
+                description: 'Consciousness extends beyond ordinary brain-based states',
+                theories: [
+                    { name: 'Psi Phenomena', proponents: 'Radin, Tart', claim: 'Mind can extend beyond brain (telepathy, precognition)' },
+                    { name: 'Near-Death Experiences', proponents: 'Van Lommel', claim: 'Consciousness can persist when brain is non-functional' },
+                    { name: 'Psychedelic States', proponents: 'Carhart-Harris', claim: 'Psychedelics reveal fundamental consciousness structures' }
+                ]
+            },
+            challenge: {
+                name: 'Challenge Theories',
+                color: '#64748b',
+                description: 'Question whether we can solve the consciousness problem',
+                theories: [
+                    { name: 'Mysterianism', proponents: 'McGinn', claim: 'Humans are cognitively closed to understanding consciousness' },
+                    { name: 'Hard Problem', proponents: 'Chalmers', claim: 'Explaining experience is fundamentally harder than explaining function' }
+                ]
+            }
+        };
+        
+        function showView(viewName) {
+            document.querySelectorAll('.view-content').forEach(v => v.classList.add('hidden'));
+            document.getElementById(viewName + '-view').classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.nav-btn').classList.add('active');
+        }
+        
+        function showCategory(categoryId) {
+            const category = categories[categoryId];
+            const detailsDiv = document.getElementById('category-details');
+            
+            let html = `
+                <div class="theory-card" style="border-color: ${category.color};">
+                    <h3 style="color: ${category.color};">${category.name}</h3>
+                    <p>${category.description}</p>
+                    <h4>Key Theories & Proponents</h4>
+                    <div class="theory-list">
+            `;
+            
+            category.theories.forEach(theory => {
+                html += `
+                    <div class="theory-item" style="border-color: ${category.color};">
+                        <strong style="color: ${category.color};">${theory.name}</strong>
+                        <div class="meta">
+                            <strong>Proponents:</strong> ${theory.proponents}
+                        </div>
+                        <div class="claim">
+                            <strong>Core claim:</strong> ${theory.claim}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            detailsDiv.innerHTML = html;
+            detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
